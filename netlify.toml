@@ -1,0 +1,26 @@
+# netlify.toml
+
+[build]
+  publish = "dist/pwa"
+  command = "quasar build -m pwa"
+
+[[headers]]
+  # Define o cache de arquivos estáticos do PWA
+  # Cache todos os arquivos por 7 dias
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, immutable"
+
+[[headers]]
+  # Define o cache de imagens do PWA
+  # Cache todos os arquivos por 30 dias
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, immutable"
+
+[[redirects]]
+  # Define o redirecionamento das rotas SPA para o arquivo index.html
+  # Isso é necessário para o PWA funcionar corretamente
+  from = "/*"
+  to = "/index.html"
+  status = 200
